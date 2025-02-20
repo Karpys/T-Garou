@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3199b5a63d744f181e50781f5cc7480, type: 3}
-  m_Name: Surgeon
+  m_Name: Pharma
   m_EditorClassIdentifier: 
-  m_CharacterName: Surgeon
+  m_CharacterName: Pharma
   m_Icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_IsInfected: 0
   m_InfectedCount: 0

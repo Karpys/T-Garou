@@ -27,20 +27,33 @@ namespace KarpysDev.TGarou
         {
             m_CurrentGameEvent = m_GameEvents[0];
             m_CurrentGameEvent.StartEvent();
+            m_GameEvents.Remove(m_CurrentGameEvent);
         }
 
         public void EndCurrentEvent()
         {
             m_CurrentGameEvent.EndEvent();
-            m_GameEvents.Remove(m_CurrentGameEvent);
-            m_CurrentGameEvent = m_GameEvents[0];
-            m_CurrentGameEvent.StartEvent();
+
+            if (m_GameEvents.Count > 0)
+            {
+                m_CurrentGameEvent.StartEvent();
+                m_CurrentGameEvent = m_GameEvents[0];
+            }
         }
 
         public void NextCharacter()
         {
+            if (m_CurrentCharacter == m_Characters.Length)
+            {
+                //Display Vote screen
+                AddGameEvent(new VoteEvent(ScreenDisplayer.Instance.VoteScreen));
+                StartCurrentEvent();
+                return;
+            }
+            
             m_Characters[m_CurrentCharacter].StartTurn();
             StartCurrentEvent();
+            m_CurrentCharacter++;
         }
     }
 

@@ -6,9 +6,12 @@ namespace KarpysDev.TGarou
     public class ScreenDisplayer : SingletonMonoBehavior<ScreenDisplayer>
     {
         [SerializeField] private GameEvent m_GameEvent = null;
-        [SerializeField] private ScreenSimpleCharacterSelector m_SurgeonScreen = null;
+        [SerializeField] private ScreenSimpleCharacterSelector m_VoteScreen = null;
+        [SerializeField] private ScreenSimpleCharacterSelector m_PharmacistScreen = null;
 
         private ScreenDisplay m_CurrentScreen = null;
+        public ScreenSimpleCharacterSelector PharmacistScreen => m_PharmacistScreen;
+        public ScreenSimpleCharacterSelector VoteScreen => m_VoteScreen;
 
         private void Display(ScreenDisplay nextScreen)
         {
@@ -18,10 +21,16 @@ namespace KarpysDev.TGarou
             m_CurrentScreen = nextScreen;
         }
         
-        public void DisplaySurgeonScreen(SurgeonEvent surgeonEvent)
+        public void DisplayPharmacistScreen(PharmacistEvent pharmacistEvent)
         {
-            Display(m_SurgeonScreen);
-            m_SurgeonScreen.AddNextButtonEvent(surgeonEvent.EndEvent);
+            Display(m_PharmacistScreen);
+            //m_PharmacistScreen.AddNextButtonEvent(pharmacistEvent.EndEvent);
+        }
+
+        public void DisplayVoteEvent(VoteEvent voteEvent)
+        {
+            Display(m_VoteScreen);
+            //m_VoteScreen.AddNextButtonEvent(voteEvent.EndEvent);
         }
     }
 }

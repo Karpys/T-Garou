@@ -1,16 +1,17 @@
 namespace KarpysDev.TGarou
 {
-    public class SurgeonEvent : IGameEvent
+    public class 
+        PharmacistEvent : IGameEvent
     {
         private ICharacterSelector m_CharacterSelector = null;
 
-        public SurgeonEvent(ICharacterSelector characterSelector)
+        public PharmacistEvent(ICharacterSelector characterSelector)
         {
             m_CharacterSelector = characterSelector;
         }
         public void StartEvent()
         {
-            ScreenDisplayer.Instance.DisplaySurgeonScreen(this);
+            ScreenDisplayer.Instance.DisplayPharmacistScreen(this);
         }
 
         public void EndEvent()
@@ -18,6 +19,7 @@ namespace KarpysDev.TGarou
             if(!CanEndEvent())
                 return;
             m_CharacterSelector.CharacterSelected.Protect();
+            GameManager.Instance.NextCharacter();
         }
 
         private bool CanEndEvent()

@@ -1,7 +1,7 @@
 namespace KarpysDev.TGarou
 {
+    using KarpysUtils;
     using UnityEngine;
-    using UnityEngine.Serialization;
     using UnityEngine.UI;
 
     public abstract class BaseCharacter : MonoBehaviour
@@ -11,6 +11,7 @@ namespace KarpysDev.TGarou
 
         private bool m_IsInfected = false;
         private int m_InfectedCount = 0;
+        private bool m_IsIsolated = false;
 
         
         //Reset every day
@@ -27,6 +28,7 @@ namespace KarpysDev.TGarou
 
         private void DayReset()
         {
+            m_IsIsolated = false;
             m_IsProtected = false;
         }
 
@@ -54,6 +56,11 @@ namespace KarpysDev.TGarou
         public void OnSelect()
         {
             GameEvent.Instance.OnCharacterSelect?.Invoke(this);
+        }
+
+        public void Quarantine()
+        {
+            m_IsIsolated = true;
         }
     }
 }

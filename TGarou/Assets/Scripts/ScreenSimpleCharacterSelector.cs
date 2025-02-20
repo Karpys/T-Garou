@@ -1,35 +1,35 @@
 namespace KarpysDev.TGarou
 {
+    using TMPro;
     using UnityEngine;
-    using UnityEngine.Events;
     using UnityEngine.UI;
 
     public class ScreenSimpleCharacterSelector : ScreenDisplay,ICharacterSelector
     {
         [SerializeField] private Button m_NextButton = null;
+        [SerializeField] private Image m_CharacterSelectedIcon = null;
+        [SerializeField] private TMP_Text m_CharacterSelectedName = null;
 
         private BaseCharacter m_CharacterSelected = null;
         public BaseCharacter CharacterSelected => m_CharacterSelected;
-        public void AddNextButtonEvent(UnityAction nextButton)
-        {
-            m_NextButton.onClick.AddListener(nextButton);
-        }
 
         public override void Display()
         {
-            m_NextButton.onClick.RemoveAllListeners();
+            GameEvent.Instance.OnCharacterSelect += SelectCharacter;
             base.Display();
         }
 
         public override void Hide()
         {
             base.Hide();
-            GameEvent.Instance.OnCharacterSelect += SelectCharacter;
+            GameEvent.Instance.OnCharacterSelect -= SelectCharacter;
         }
 
-        private void SelectCharacter(BaseCharacter baseCharacter)
+        private void SelectCharacter(BaseCharacter characterSelected)
         {
-            m_CharacterSelected = baseCharacter;
+            m_CharacterSelected = characterSelected;
+            m_CharacterSelectedIcon.sprite = characterSelected.CharacterInformations.Icon;
+            m_CharacterSelectedName.text = characterSelected.CharacterInformations.CharacterName;
         }
     }
 }
