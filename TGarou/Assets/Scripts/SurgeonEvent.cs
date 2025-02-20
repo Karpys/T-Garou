@@ -2,22 +2,27 @@ namespace KarpysDev.TGarou
 {
     public class SurgeonEvent : IGameEvent
     {
-        private BaseCharacter m_ProtectedCharacter = null;
+        private ICharacterSelector m_CharacterSelector = null;
+
+        public SurgeonEvent(ICharacterSelector characterSelector)
+        {
+            m_CharacterSelector = characterSelector;
+        }
         public void StartEvent()
         {
             ScreenDisplayer.Instance.DisplaySurgeonScreen(this);
-            GameEvent.Instance.OnCharacterSelect += OnSelect;
         }
 
         public void EndEvent()
         {
-            GameEvent.Instance.OnCharacterSelect -= OnSelect;
-            m_ProtectedCharacter.Protect();
+            if(!CanEndEvent())
+                return;
+            m_CharacterSelector.CharacterSelected.Protect();
         }
 
-        public void OnSelect(BaseCharacter baseCharacter)
+        private bool CanEndEvent()
         {
-            m_ProtectedCharacter = baseCharacter;
+            return m_CharacterSelector.CharacterSelected != null;
         }
     }
 }

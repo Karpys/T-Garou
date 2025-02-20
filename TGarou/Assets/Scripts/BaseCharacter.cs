@@ -1,6 +1,7 @@
 namespace KarpysDev.TGarou
 {
     using UnityEngine;
+    using UnityEngine.Serialization;
     using UnityEngine.UI;
 
     public abstract class BaseCharacter : MonoBehaviour
@@ -14,6 +15,8 @@ namespace KarpysDev.TGarou
         
         //Reset every day
         private bool m_IsProtected = false;
+        
+        public CharacterInformations CharacterInformations => m_CharacterInformations;
         private void Awake()
         {
             m_CharacterImage.sprite = m_CharacterInformations.Icon;
